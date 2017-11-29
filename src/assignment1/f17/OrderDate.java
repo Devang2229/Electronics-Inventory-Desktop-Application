@@ -20,12 +20,11 @@ public class OrderDate extends Inventory {
     private int itemsSold;
     private int itemsLeft;
    
-    private String purchaseOrder;
-    private double profitValue;
+    private int purchaseOrder;
     
        
     
-    public OrderDate(int itemsSold, int itemsLeft, String purchaseOrder, String profitValue,
+    public OrderDate(int itemsSold, int itemsLeft, int purchaseOrder,
   String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color)
     
     
@@ -43,7 +42,7 @@ public class OrderDate extends Inventory {
   
     public void setItemsSold(int itemsSold)
     {
-      if(itemsSold > 0 && itemsSold < super.getItemQuantity() )
+      if(itemsSold > 0 && itemsSold < getItemQuantity() )
           this.itemsSold = itemsSold;
       else 
           throw new IllegalArgumentException("Please enter the Items between 0 and total quantity ");
@@ -51,11 +50,11 @@ public class OrderDate extends Inventory {
 
     public void setItemsLeft(int itemsLeft) 
     {
-            itemsLeft = super.getItemQuantity() - itemsSold;
+            itemsLeft = (getItemQuantity() - itemsSold);
             this.itemsLeft = itemsLeft;
     }
 
-    public void setPurchaseOrder(String purchaseOrder) {
+    public void setPurchaseOrder(int purchaseOrder) {
  
         if(itemsSold > 100 && itemsLeft < 20)
             this.purchaseOrder = purchaseOrder;
@@ -70,7 +69,7 @@ public class OrderDate extends Inventory {
     public int getItemsLeft() {
         return itemsLeft;
     }
-    public String getPurchaseOrder() {
+    public int getPurchaseOrder() {
         return purchaseOrder;
     }
 

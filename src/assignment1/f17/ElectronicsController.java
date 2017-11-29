@@ -49,6 +49,7 @@ public class ElectronicsController implements Initializable {
     @FXML private TextField ModelTextField;
     @FXML private Label errorMsg;
     
+    
      @FXML private ImageView electronicImage;
      
       //Used for the file chooser
@@ -58,6 +59,7 @@ public class ElectronicsController implements Initializable {
     public void initialData(ObservableList<Electronics> listOfDevice)
     {
         electronics = listOfDevice;
+        
     }
      
     public void createNewDeviceButtonPushed(ActionEvent event) throws IOException
@@ -106,7 +108,7 @@ public class ElectronicsController implements Initializable {
     
       /**
      * When this method is called, it will change the Scene to 
-     * a TableView example
+     * a TableView example, so the back button takes it to the tableview.
      * @param event
      * @throws java.io.IOException
      */
@@ -162,6 +164,7 @@ public class ElectronicsController implements Initializable {
         {
             System.err.println(e.getMessage());
         }
+      
     }    
     
     /**

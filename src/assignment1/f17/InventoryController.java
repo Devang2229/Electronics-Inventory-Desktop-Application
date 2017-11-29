@@ -41,6 +41,7 @@ public class InventoryController implements Initializable {
     @FXML private TableColumn<Electronics, String> model;
     
     @FXML private Button Sell;
+    @FXML private Button inventoryValueLabel;
     
     /**
      * Initializes the controller class.
@@ -58,8 +59,10 @@ public class InventoryController implements Initializable {
         model.setCellValueFactory(new PropertyValueFactory<Electronics, String>("model"));
         color.setCellValueFactory(new PropertyValueFactory<Electronics, String>("color"));
         
+        
         //load dummy data
         ElectronicsTable.setItems(getInventoryItems());
+        this.updateInventoryValueLabel();
        
         
         
@@ -107,7 +110,16 @@ public class InventoryController implements Initializable {
         return electronics;
     }
     
-    
+    public void updateInventoryValueLabel()
+    {
+        double inventoryValue=0;
+        for (Electronics device : ElectronicsTable.getItems())
+        {
+            inventoryValue += device.getSellingPrice();
+        }
+        inventoryValueLabel.setText("Inventory Value: " +inventoryValue);
+    }
+
     /**
      * This method will sell the products in the table view
      */

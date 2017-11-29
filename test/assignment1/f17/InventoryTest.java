@@ -37,7 +37,7 @@ public class InventoryTest
     public void setUp() 
     {
         
-        validInventory = new Inventory("Samsung Galaxy s8", 25, "Sheetal Enterprise", 1000.0, 990.05, "L4M5V3", "Black");
+        validInventory = new Inventory("Samsung Galaxy s8", 500, "Sheetal Enterprise", 1000.0, 990.05, "L4M5V3", "Black");
     }
     
     @After
@@ -51,7 +51,7 @@ public class InventoryTest
     public void testGetItemName()
     {
         System.out.println("getItemName");
-        String expResult = "Samsung Galaxy S8";
+        String expResult = "Samsung Galaxy s8";
         String result = validInventory.getItemName();
         assertEquals(expResult, result);
      }
@@ -63,7 +63,7 @@ public class InventoryTest
     public void testSetItemName() 
     {
         System.out.println("setItemName");
-        String itemName = "Samsung Galaxy S8";
+        String itemName = "Samsung Galaxy s8";
         validInventory.setItemName(itemName);
        
     }
@@ -75,7 +75,7 @@ public class InventoryTest
     public void testGetItemQuantity() 
     {
         System.out.println("getItemQuantity");
-        int expResult = 25;
+        int expResult = 500;
         int result = validInventory.getItemQuantity();
         assertEquals(expResult, result);
      }
@@ -87,7 +87,7 @@ public class InventoryTest
     public void testSetItemQuantity() 
     {
         System.out.println("setItemQuantity");
-        int itemQuantity = 25;
+        int itemQuantity = 500;
         validInventory.setItemQuantity(itemQuantity);
        
     }
