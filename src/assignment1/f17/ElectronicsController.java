@@ -44,8 +44,8 @@ public class ElectronicsController implements Initializable {
     @FXML private ChoiceBox color;
     @FXML private Spinner itemQuantitySpinner;
     @FXML private TextField manufacturerNamETextField;
-    @FXML private TextField BuyingPriceTextField;
-    @FXML private TextField SellingPriceTextField;
+    @FXML private TextField retailPriceTextField;
+    @FXML private TextField customerPriceTextField;
     @FXML private TextField ModelTextField;
     @FXML private Label errorMsg;
     
@@ -69,12 +69,13 @@ public class ElectronicsController implements Initializable {
             Electronics newDevice = new Electronics(itemName.getValue().toString(), 
                                                     Integer.parseInt(itemQuantitySpinner.getValue().toString()),
                                                     manufacturerNamETextField.getText(),
-                                                    Double.parseDouble(SellingPriceTextField.getText()),
-                                                    Double.parseDouble( BuyingPriceTextField.getText()), 
+                                                    Double.parseDouble(retailPriceTextField.getText()),
+                                                    Double.parseDouble( customerPriceTextField.getText()), 
                                                     ModelTextField.getText() ,
                                                     color.getValue().toString());
              
             electronics.add(newDevice);
+            
             changeScene(event, "Inventory.fxml");
         }
     catch (IllegalArgumentException e)

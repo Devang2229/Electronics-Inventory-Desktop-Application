@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment1.f17;
 
 import java.io.IOException;
@@ -18,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,12 +32,16 @@ public class InventoryController implements Initializable {
     @FXML private TableColumn<Electronics, Integer> quantity;
     @FXML private TableColumn<Electronics, String> manufacturerName;
     @FXML private TableColumn<Electronics, String> color;
-    @FXML private TableColumn<Electronics, Double> sellingPrice;
-    @FXML private TableColumn<Electronics, Double> buyingPrice;
+    @FXML private TableColumn<Electronics, Double> retailPrice;
+    @FXML private TableColumn<Electronics, Double> customerPrice;
     @FXML private TableColumn<Electronics, String> model;
     
-    @FXML private Button Sell;
-    @FXML private Button inventoryValueLabel;
+    @FXML private Button sell;
+    @FXML private Label inventoryValueLabel;
+    @FXML private Label electronicsStockLabel;
+    @FXML private Label electronicsSoldLabel;
+    //@FXML private Label inventoryValueLabel;
+    
     
     /**
      * Initializes the controller class.
@@ -54,8 +54,8 @@ public class InventoryController implements Initializable {
         name.setCellValueFactory(new PropertyValueFactory<Electronics, String>("itemName"));
         quantity.setCellValueFactory(new PropertyValueFactory<Electronics, Integer>("itemQuantity"));
         manufacturerName.setCellValueFactory(new PropertyValueFactory<Electronics, String>("manufacturerName"));
-        sellingPrice.setCellValueFactory(new PropertyValueFactory<Electronics, Double>("sellingPrice"));
-        buyingPrice.setCellValueFactory(new PropertyValueFactory<Electronics, Double>("buyingPrice"));
+        retailPrice.setCellValueFactory(new PropertyValueFactory<Electronics, Double>("retailPrice"));
+        customerPrice.setCellValueFactory(new PropertyValueFactory<Electronics, Double>("customerPrice"));
         model.setCellValueFactory(new PropertyValueFactory<Electronics, String>("model"));
         color.setCellValueFactory(new PropertyValueFactory<Electronics, String>("color"));
         
@@ -63,13 +63,13 @@ public class InventoryController implements Initializable {
         //load dummy data
         ElectronicsTable.setItems(getInventoryItems());
         this.updateInventoryValueLabel();
-       
+        this.updateElectronicsInStockLabel();
         
         
         
     }
    
-   public void createNewEmployeeButtonPushed(ActionEvent event) throws IOException
+   public void createElectronicsButtonPushed(ActionEvent event) throws IOException
     {
         //load a new scene
         FXMLLoader loader = new FXMLLoader();
@@ -102,10 +102,10 @@ public class InventoryController implements Initializable {
     public ObservableList<Electronics>  getInventoryItems()
     {
         ObservableList<Electronics> electronics = FXCollections.observableArrayList();
-        electronics.add(new Electronics("Dell Inspiron", 56, "Sheetal Enterprise", 1200.25, 1100.36, "L4J6J6", "Black"));
-        electronics.add(new Electronics("Samung S8 Plus", 98, "Jassrra Maketing", 23.56, 56.5, "M4N6V4", "Silver"));
-        electronics.add(new Electronics("Nokia A8", 25, "Bindu Sales & Co.", 23.56, 56.5, "M8D3N9", "White"));
-        electronics.add(new Electronics("Iphone 8X", 200, "Dunga Enterprise", 23.56, 56.5, "O7H6B5", "Black"));
+        electronics.add(new Electronics("Dell Inspiron", 56, "Sheetal Enterprise", 1200.0, 1300.56, "L4J6J6", "Black"));
+        electronics.add(new Electronics("Samung S8 Plus", 98, "Jassrra Maketing", 1100.96,1200.96 , "M4N6V4", "Silver"));
+        electronics.add(new Electronics("Nokia A8", 25, "Bindu Sales & Co.", 1000.0, 1200.08, "M8D3N9", "White"));
+        electronics.add(new Electronics("Iphone 8X", 200, "Dunga Enterprise", 1000.96, 1500.56, "O7H6B5", "Black"));
        
         return electronics;
     }
@@ -113,11 +113,32 @@ public class InventoryController implements Initializable {
     public void updateInventoryValueLabel()
     {
         double inventoryValue=0;
+        
         for (Electronics device : ElectronicsTable.getItems())
         {
-            inventoryValue += device.getSellingPrice();
+            inventoryValue += device.getRetailPrice();
         }
-        inventoryValueLabel.setText("Inventory Value: " +inventoryValue);
+        inventoryValueLabel.setText("Total Inventory Value: " +inventoryValue);
+    }
+    
+    public void updateElectronicsInStockLabel()
+    {
+        double itemsLeft=0;
+        for(Inventory items : ElectronicsTable.getItems())
+        {
+            itemsLeft+= items.getItemQuantity();
+        }
+         electronicsStockLabel.setText("Electronics Currently Stock: " + itemsLeft);
+    }
+    
+    public void updateElectronicsSoldLabel()
+    {
+        double itemsSold=0;
+        for(Inventory items : ElectronicsTable.getItems())
+        {
+            itemsSold+= items.getItemQuantity() ;
+        }
+         electronicsSoldLabel.setText("Eletronics Sold: " + itemsSold);
     }
 
     /**
@@ -137,6 +158,10 @@ public class InventoryController implements Initializable {
         {
             allElectronicDevice.remove(elecronic);
         }
+        updateInventoryValueLabel();
+        updateElectronicsInStockLabel();
+        updateElectronicsSoldLabel();
+        
         
     }
     

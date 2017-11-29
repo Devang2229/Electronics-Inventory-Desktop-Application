@@ -13,19 +13,19 @@ public class Inventory {
     private static int inventoryId = 1000001;
     private SimpleStringProperty itemName, manufacturerName, model, color ;
     protected SimpleIntegerProperty itemQuantity;
-    private SimpleDoubleProperty sellingPrice ,buyingPrice;
+    private SimpleDoubleProperty retailPrice ,customerPrice;
    
     /*
     This is constructor for the inventory class.
     */
-    public Inventory(String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color)
+    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color)
     {
        inventoryId++;
         setItemName(itemName);
         setItemQuantity(itemQuantity);
         setManufacturerName(manufacturerName);
-        setSellingPrice(sellingPrice);
-        setBuyingPrice(buyingPrice);
+        setRetailPrice(retailPrice);
+        setCustomerPrice(customerPrice);
         setModel(model);
         setColor(color);
     
@@ -86,28 +86,28 @@ public class Inventory {
                                             + "case letter and only contain letters");
     }
 
-    public double getSellingPrice()
+    public double getCustomerPrice()
     {
-        return sellingPrice.get();
+        return customerPrice.get();
     }
 
-    public void setSellingPrice(double sellingPrice)
+    public void setCustomerPrice(double sellingPrice)
     {
          if(sellingPrice > 0 && sellingPrice < 40000)
-            this.sellingPrice = new SimpleDoubleProperty(sellingPrice);
+            this.customerPrice = new SimpleDoubleProperty(sellingPrice);
         else 
             throw new IllegalArgumentException("Please enter selling price range 0 to 40000.");
     }
 
-    public double getBuyingPrice()
+    public double getRetailPrice()
     {
-        return buyingPrice.get();
+        return retailPrice.get();
     }
 
-    public void setBuyingPrice(double buyingPrice) 
+    public void setRetailPrice(double buyingPrice) 
     {
         if(buyingPrice > 0 && buyingPrice < 40000)
-             this.buyingPrice = new SimpleDoubleProperty(buyingPrice);
+             this.retailPrice = new SimpleDoubleProperty(buyingPrice);
         else 
             throw new IllegalArgumentException("Please enter the buying price range 0 to 4000.");
     }
