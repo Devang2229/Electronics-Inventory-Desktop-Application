@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -47,7 +48,7 @@ public class ElectronicsController implements Initializable {
     @FXML private TextField retailPriceTextField;
     @FXML private TextField customerPriceTextField;
     @FXML private TextField ModelTextField;
-    @FXML private Label errorMsg;
+    @FXML private Label errorMsgLabel;
     
     
      @FXML private ImageView electronicImage;
@@ -70,7 +71,7 @@ public class ElectronicsController implements Initializable {
                                                     Integer.parseInt(itemQuantitySpinner.getValue().toString()),
                                                     manufacturerNamETextField.getText(),
                                                     Double.parseDouble(retailPriceTextField.getText()),
-                                                    Double.parseDouble( customerPriceTextField.getText()), 
+                                                    Double.parseDouble(customerPriceTextField.getText()), 
                                                     ModelTextField.getText() ,
                                                     color.getValue().toString());
              
@@ -80,7 +81,7 @@ public class ElectronicsController implements Initializable {
         }
     catch (IllegalArgumentException e)
         {
-            errorMsg.setText(e.getMessage());
+            this.errorMsgLabel.setText(e.getMessage());
         }
     
     }
@@ -109,7 +110,7 @@ public class ElectronicsController implements Initializable {
     
       /**
      * When this method is called, it will change the Scene to 
-     * a TableView example, so the back button takes it to the tableview.
+     * a TableView example, so the back button takes it to the table view.
      * @param event
      * @throws java.io.IOException
      */
@@ -131,6 +132,11 @@ public class ElectronicsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        
+           
+        //This is configuring for error Message display.
+        errorMsgLabel.setText("");
+        
         //This items are for configuring the ComboBox.
         itemName.getItems().add("Dell Laptops");
         itemName.getItems().add("Iphone 8");
@@ -151,9 +157,7 @@ public class ElectronicsController implements Initializable {
         
         SpinnerValueFactory<Integer> quantity = new  SpinnerValueFactory.IntegerSpinnerValueFactory(0,900, 300);
         this.itemQuantitySpinner.setValueFactory(quantity);
-        
-        //This is configuring for error Message display.
-        errorMsg.setText("");
+     
         
          try
         {
@@ -197,24 +201,32 @@ public class ElectronicsController implements Initializable {
         
         fileChooser.setInitialDirectory(userDirectory);
         
-        //open the file dialog window
-        imageFile = fileChooser.showOpenDialog(stage);
+     
+       //open the file dialog window
+        File tmpImageFile = fileChooser.showOpenDialog(stage);
         
-        //ensure the user selected a file
-        if (imageFile.isFile())
+        
+         if (tmpImageFile != null)
         {
-            try
+            imageFile = tmpImageFile;
+            //ensure the user selected a file
+            if (imageFile.isFile())
             {
-                BufferedImage bufferedImage = ImageIO.read(imageFile);
-                Image image = SwingFXUtils.toFXImage(bufferedImage,null);
-                electronicImage.setImage(image);
-            }
-            catch (IOException e)
-            {
-                System.err.println(e.getMessage());
+                try
+                {
+                    BufferedImage bufferedImage = ImageIO.read(imageFile);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage,null);
+                    electronicImage.setImage(image);
+                }
+                catch (IOException e)
+                {
+                    System.err.println(e.getMessage());
+                }
             }
         }
     }
-    
-    
 }
+    
+    
+    
+

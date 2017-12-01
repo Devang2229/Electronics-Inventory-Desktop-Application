@@ -40,8 +40,8 @@ public class InventoryController implements Initializable {
     @FXML private Label inventoryValueLabel;
     @FXML private Label electronicsStockLabel;
     @FXML private Label electronicsSoldLabel;
-    //@FXML private Label inventoryValueLabel;
-    
+    @FXML private Label totalSalesLabel;
+   
     
     /**
      * Initializes the controller class.
@@ -64,6 +64,7 @@ public class InventoryController implements Initializable {
         ElectronicsTable.setItems(getInventoryItems());
         this.updateInventoryValueLabel();
         this.updateElectronicsInStockLabel();
+        this.updateTotalSalesLabel();
         
         
         
@@ -139,6 +140,16 @@ public class InventoryController implements Initializable {
             itemsSold+= items.getItemQuantity() ;
         }
          electronicsSoldLabel.setText("Eletronics Sold: " + itemsSold);
+    }
+    
+    public void updateTotalSalesLabel()
+    {
+        double totalSales =0;
+        for(Inventory items : ElectronicsTable.getItems())
+        {
+            totalSales+= items.getCustomerPrice();
+        }
+         totalSalesLabel.setText("Total Sales: " + totalSales);
     }
 
     /**

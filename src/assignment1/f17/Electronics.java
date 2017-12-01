@@ -24,14 +24,14 @@ public class Electronics extends Inventory{
     
     private String productKey;
     private String isinCode;
-    private String Description;
+    private String description;
     private Image image;
    
-    public Electronics(String productKey, String Description, String isinCode, String itemName,
-                        int itemQuantity, String manufacturerName, double sellingPrice, 
-                        double buyingPrice, String model, String color)
+    public Electronics(String productKey, String description, String isinCode, String itemName,
+                        int itemQuantity, String manufacturerName, double retailPrice, 
+                        double customerPrice, String model, String color)
     {
-        super(itemName, itemQuantity, manufacturerName, sellingPrice, buyingPrice, model, color);
+        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color);
         this.image = image;
     }
     
@@ -40,9 +40,9 @@ public class Electronics extends Inventory{
     }
 
 
-    public Electronics(String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color)
+    public Electronics(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color)
     {
-        super(itemName, itemQuantity, manufacturerName, sellingPrice, buyingPrice, model, color);
+        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color);
      
         try
         {
@@ -85,13 +85,13 @@ public class Electronics extends Inventory{
 
     public String getDescription() 
     {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) 
+    public void setDescription(String description) 
     {
-        if (Description.matches("[A-Z][a-zA-Z]") )
-             this.Description = Description;
+        if (description.matches("[A-Z][a-zA-Z]") )
+             this.description = description;
         else
             throw new IllegalArgumentException("Description must start with an upper"
                                             + "case letter and only contain letters");

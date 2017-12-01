@@ -37,7 +37,7 @@ public class InventoryTest
     public void setUp() 
     {
         
-        validInventory = new Inventory("Samsung Galaxy s8", 500, "Sheetal Enterprise", 1000.0, 990.05, "L4M5V3", "Black");
+        validInventory = new Inventory("Samsung Galaxy s8", 500, "Sheetal Enterprise", 990.0, 1000.05, "L4M5V3", "Black");
     }
     
     @After
@@ -122,11 +122,11 @@ public class InventoryTest
      * Test of getSellingPrice method, of class Inventory.
      */
     @Test
-    public void testGetSellingPrice()
+    public void testGetCustomerPrice()
     {
         System.out.println("getSellingPrice");
-        double expResult = 1000.0;
-        double result = validInventory.getSellingPrice();
+        double expResult = 1000.05;
+        double result = validInventory.getCustomerPrice();
         assertEquals(expResult, result, 0.0);
     }
 
@@ -134,22 +134,22 @@ public class InventoryTest
      * Test of setSellingPrice method, of class Inventory.
      */
     @Test
-    public void testSetSellingPrice() 
+    public void testSetCustomerPrice() 
     {
         System.out.println("setSellingPrice");
-        double sellingPrice = 1000.0;
-        validInventory.setSellingPrice(sellingPrice);
+        double sellingPrice = 1000.05;
+        validInventory.setCustomerPrice(sellingPrice);
     }
 
     /**
      * Test of getBuyingPrice method, of class Inventory.
      */
     @Test
-    public void testGetBuyingPrice()
+    public void testGetRetailPrice()
     {
         System.out.println("getBuyingPrice");
-        double expResult = 990.05;
-        double result = validInventory.getBuyingPrice();
+        double expResult = 990.0;
+        double result = validInventory.getRetailPrice();
         assertEquals(expResult, result, 0.0);
     }
     
@@ -158,11 +158,11 @@ public class InventoryTest
      * Test of setBuyingPrice method, of class Inventory.
      */
     @Test
-    public void testSetBuyingPrice()
+    public void testSetRetailPrice()
     {
         System.out.println("setBuyingPrice");
-        double buyingPrice = 990.05;
-        validInventory.setBuyingPrice(buyingPrice);
+        double buyingPrice = 990.0;
+        validInventory.setRetailPrice(buyingPrice);
     }
 
     /**

@@ -68,7 +68,7 @@
          </children>
       </GridPane>
       <ImageView fx:id="electronicImage" fitHeight="172.0" fitWidth="214.0" layoutX="482.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="errorMsg" layoutX="29.0" layoutY="435.0" prefHeight="25.0" prefWidth="491.0" text="Label" />
+      <Label fx:id="errorMsgLabel" layoutX="29.0" layoutY="435.0" prefHeight="25.0" prefWidth="491.0" />
       <Label layoutX="233.0" layoutY="14.0" prefHeight="25.0" prefWidth="320.0" text="BEST BUY ELECTRONICS " textFill="#3a37dd">
          <font>
             <Font name="Times New Roman Bold Italic" size="26.0" />
