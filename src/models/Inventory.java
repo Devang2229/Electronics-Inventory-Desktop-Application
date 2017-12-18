@@ -1,5 +1,11 @@
-package assignment1.f17;
+package models;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,17 +16,21 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Inventory {
       
-    private static int inventoryId = 1000001;
-    private SimpleStringProperty itemName, manufacturerName, model, color ;
+    private  int UserId;
+    protected SimpleStringProperty itemName, manufacturerName, model, color ;
     protected SimpleIntegerProperty itemQuantity;
-    private SimpleDoubleProperty retailPrice ,customerPrice;
+    protected SimpleDoubleProperty retailPrice ,customerPrice;
+    protected byte[] salt;
+    protected String password;
+
    
+
     /*
     This is constructor for the inventory class.
     */
-    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color)
+    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color, String password)
     {
-       inventoryId++;
+       
         setItemName(itemName);
         setItemQuantity(itemQuantity);
         setManufacturerName(manufacturerName);
@@ -141,4 +151,69 @@ public class Inventory {
         else 
             throw new IllegalArgumentException("Please eneter the following colors: Black , White or Silver.");
     }
+    
+    
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int UserID) {
+        if (UserID >= 0)
+            this.UserId = UserID;
+        else
+            throw new IllegalArgumentException("User ID must be >= 0");
+    }
+    
+    
+   /**
+    * This method will record the purchase order date and item name
+    */
+    public void purchaseItem(LocalDate purchaseDate, int purchaseOrderQuantity) throws SQLException
+    {
+         //validate the date is today or earlier
+        if (purchaseDate.isAfter(LocalDate.now()))
+            throw new IllegalArgumentException("Date purchaase cannot be in the future");
+        
+        if (purchaseDate.isBefore(LocalDate.now().minusYears(3)))
+            throw new IllegalArgumentException("Date ordered must be within the last 36 months");
+        
+       
+        //ready to store in the database
+        Connection conn = null;
+        PreparedStatement ps = null;
+        
+        try{
+            //1. connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            
+            //2. create a preparedStatement
+            String sql = "INSERT INTO purchaseOrder(UserId, purchaseDate, purchaseOrderQuantity) VALUES (?,?,?);";
+            
+            //3.  prepare the query
+            ps = conn.prepareStatement(sql);
+            
+            //4.  convert the localdate to sql date
+            Date dw = Date.valueOf(purchaseDate);
+            
+            //5.  bind the parameters
+            ps.setInt(1, UserId);
+            ps.setDate(2, dw);
+            ps.setInt(3, purchaseOrderQuantity);
+            
+            //6.  execute the update  
+            ps.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            if (conn != null)
+                conn.close();
+            if (ps != null)
+                ps.close();
+        }
+    }
+    
 }

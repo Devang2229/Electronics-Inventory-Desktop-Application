@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="596.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="view.MonthlyPurchaseReportViewController">
+   <children>
+      <Label layoutX="167.0" layoutY="28.0" prefHeight="42.0" prefWidth="278.0" text="ORDER PURCHASE  REPORT">
+         <font>
+            <Font name="Times New Roman Italic" size="21.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="barChart" layoutX="22.0" layoutY="93.0" prefHeight="343.0" prefWidth="547.0">
+        <xAxis>
+          <CategoryAxis fx:id="months" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="ItemPurchased" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <Button layoutX="458.0" layoutY="452.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="35.0" prefWidth="105.0" text="Back" />
+   </children>
+</AnchorPane>

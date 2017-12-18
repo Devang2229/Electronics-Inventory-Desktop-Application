@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment1.f17;
+package models;
 
 
 import java.time.LocalDateTime;
@@ -25,11 +25,11 @@ public class OrderDate extends Inventory {
        
     
     public OrderDate(int itemsSold, int itemsLeft, int purchaseOrder,
-  String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color)
+  String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color,String password )
     
     
     {
-        super(itemName, itemQuantity, manufacturerName, sellingPrice , buyingPrice,model , color);
+        super(itemName, itemQuantity, manufacturerName, sellingPrice , buyingPrice,model , color, password);
     
     setItemsSold(itemsSold);
     setItemsLeft(itemsLeft);

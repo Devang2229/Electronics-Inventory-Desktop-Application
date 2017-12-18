@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="474.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment1.f17.ElectronicsController">
+<AnchorPane id="AnchorPane" prefHeight="474.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ElectronicsController">
    <children>
       <GridPane layoutX="26.0" layoutY="61.0" prefHeight="316.0" prefWidth="415.0">
         <columnConstraints>
@@ -28,6 +29,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Item Name ">
@@ -65,11 +68,23 @@
             <TextField fx:id="retailPriceTextField" promptText="Retail buying Price" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="customerPriceTextField" promptText="Customer selling Price" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Spinner fx:id="itemQuantitySpinner" prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Password" GridPane.rowIndex="7">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Confirm Password" GridPane.rowIndex="8">
+               <font>
+                  <Font name="Times New Roman Italic" size="18.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="pwField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <PasswordField fx:id="confirmPwField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <ImageView fx:id="electronicImage" fitHeight="172.0" fitWidth="214.0" layoutX="482.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="errorMsgLabel" layoutX="29.0" layoutY="435.0" prefHeight="25.0" prefWidth="491.0" />
-      <Label layoutX="233.0" layoutY="14.0" prefHeight="25.0" prefWidth="320.0" text="BEST BUY ELECTRONICS " textFill="#3a37dd">
+      <Label fx:id="headerLabel" layoutX="233.0" layoutY="14.0" prefHeight="25.0" prefWidth="320.0" text="BEST BUY ELECTRONICS " textFill="#3a37dd">
          <font>
             <Font name="Times New Roman Bold Italic" size="26.0" />
          </font>
@@ -78,12 +93,12 @@
          <font>
             <Font name="Times New Roman Italic" size="18.0" />
          </font></Button>
-      <Button layoutX="26.0" layoutY="395.0" mnemonicParsing="false" onAction="#changeScreenButtonPushed" prefHeight="32.0" prefWidth="158.0" text="Go Back">
+      <Button layoutX="26.0" layoutY="419.0" mnemonicParsing="false" onAction="#changeScreenButtonPushed" prefHeight="32.0" prefWidth="158.0" text="Go Back">
          <font>
             <Font name="Times New Roman Italic" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="275.0" layoutY="395.0" mnemonicParsing="false" onAction="#createNewDeviceButtonPushed" prefHeight="32.0" prefWidth="181.0" text="Create new Device">
+      <Button layoutX="303.0" layoutY="419.0" mnemonicParsing="false" onAction="#createNewDeviceButtonPushed" prefHeight="32.0" prefWidth="181.0" text="Create new Device">
          <font>
             <Font name="Times New Roman Italic" size="18.0" />
          </font>

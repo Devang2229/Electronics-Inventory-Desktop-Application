@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment1.f17;
+package view;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -25,10 +25,10 @@ public class Assignment1F17 extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         
-        Parent root = FXMLLoader.load(getClass().getResource("Inventory.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
         Scene scene = new Scene(root);
        
-        primaryStage.setTitle("Inventory Electronics");
+        primaryStage.setTitle("User Login Page");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

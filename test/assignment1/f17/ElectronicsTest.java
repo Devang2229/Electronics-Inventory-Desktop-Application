@@ -5,6 +5,7 @@
  */
 package assignment1.f17;
 
+import models.Electronics;
 import javafx.scene.image.Image;
 import org.junit.After;
 import org.junit.AfterClass;

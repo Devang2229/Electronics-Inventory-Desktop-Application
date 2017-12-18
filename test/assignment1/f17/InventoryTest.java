@@ -5,6 +5,7 @@
  */
 package assignment1.f17;
 
+import models.Inventory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
