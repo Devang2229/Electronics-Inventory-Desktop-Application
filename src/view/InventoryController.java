@@ -67,6 +67,7 @@ public class InventoryController implements Initializable {
         //set up the columns in the table
         editDeviceButton.setDisable(true);
         purchaseOrderButton.setDisable(true);
+        
         userId.setCellValueFactory(new PropertyValueFactory<Electronics, Integer>("UserId"));
         name.setCellValueFactory(new PropertyValueFactory<Electronics, String>("itemName"));
         quantity.setCellValueFactory(new PropertyValueFactory<Electronics, Integer>("itemQuantity"));
@@ -88,9 +89,6 @@ public class InventoryController implements Initializable {
         this.updateInventoryValueLabel();
         this.updateElectronicsInStockLabel();
         this.updateTotalSalesLabel();
-       
-        
-        
     }
     
     

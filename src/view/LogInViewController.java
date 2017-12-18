@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import java.io.File;
@@ -38,8 +34,7 @@ public class LogInViewController implements Initializable {
     
     public void loginButtonPushed(ActionEvent event) throws IOException, NoSuchAlgorithmException
     {
-        //query the database with the volunteerID provided, get the salt
-        //and encrypted password stored in the database
+       
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
@@ -112,7 +107,7 @@ public class LogInViewController implements Initializable {
                 SceneChangingUtility.setLoggedInUser(electronics);
          
             
-            //if the passwords match - change to the VolunteerTableView
+            //if the passwords match - change to the Inventory
             if (userPW.equals(dbPassword) && admin)
                 sc.changeScenes(event, "Inventory.fxml", "All Electronics");
             else if(userPW.equals(dbPassword))

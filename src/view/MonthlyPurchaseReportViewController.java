@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import java.io.IOException;
@@ -121,23 +117,14 @@ public class MonthlyPurchaseReportViewController implements Initializable {
                 resultSet.close();
         }
     }
-        
- 
-    
-    
-    
-     /**
-     * This method will return the scene to the VolunteerTableView
-     */
+
     public void backButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility sc = new SceneChangingUtility();
         sc.changeScenes(event, "Electronics.fxml", "All  ELectronics");
     }
-    
-    
-          
-        public void logoutButtonPushed(ActionEvent event) throws IOException
+  
+    public void logoutButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility.setLoggedInUser(null);
         SceneChangingUtility sc= new SceneChangingUtility();

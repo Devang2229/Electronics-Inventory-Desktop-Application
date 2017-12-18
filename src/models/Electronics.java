@@ -30,7 +30,6 @@ public class Electronics extends Inventory
 {
     
     private String productKey;
-    
     private String isinCode;
     private File imageFile;
     private String description;

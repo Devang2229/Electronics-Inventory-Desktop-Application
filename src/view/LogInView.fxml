@@ -15,10 +15,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="484.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LogInViewController">
    <children>
-      <GridPane layoutX="183.0" layoutY="84.0" prefHeight="153.0" prefWidth="490.0">
+      <GridPane layoutX="183.0" layoutY="100.0" prefHeight="137.0" prefWidth="490.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="128.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" prefWidth="362.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="117.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.0" minWidth="10.0" prefWidth="373.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,27 +27,27 @@
          <children>
             <Label text="User ID">
                <font>
-                  <Font name="Times New Roman Italic" size="18.0" />
+                  <Font name="Times New Roman Bold" size="22.0" />
                </font></Label>
             <Label text="Password" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Italic" size="18.0" />
+                  <Font name="Times New Roman Bold" size="22.0" />
                </font></Label>
-            <TextField fx:id="userIDTextField" GridPane.columnIndex="1" />
-            <PasswordField fx:id="pwField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="userIDTextField" prefHeight="42.0" prefWidth="362.0" GridPane.columnIndex="1" />
+            <PasswordField fx:id="pwField" prefHeight="43.0" prefWidth="373.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="366.0" layoutY="342.0" mnemonicParsing="false" onAction="#loginButtonPushed" prefHeight="36.0" prefWidth="109.0" text="LOG IN">
+      <Button layoutX="374.0" layoutY="324.0" mnemonicParsing="false" onAction="#loginButtonPushed" prefHeight="36.0" prefWidth="109.0" text="LOG IN">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label fx:id="errMsgLabel" layoutX="183.0" layoutY="269.0" prefHeight="25.0" prefWidth="490.0" text="Label">
+      <Label fx:id="errMsgLabel" layoutX="183.0" layoutY="269.0" prefHeight="39.0" prefWidth="490.0" text="Label">
          <font>
             <Font name="System Italic" size="12.0" />
          </font></Label>
-      <VBox layoutX="16.0" layoutY="11.0" prefHeight="68.0" prefWidth="692.0">
+      <VBox layoutX="16.0" layoutY="11.0" prefHeight="109.0" prefWidth="726.0">
          <children>
-            <ImageView fitHeight="62.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="104.0" fitWidth="149.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" rotate="-16.7" x="10.0" y="10.0">
                <image>
                   <Image url="@../image/2000px-Best_Buy_Logo.svg.png" />
                </image>

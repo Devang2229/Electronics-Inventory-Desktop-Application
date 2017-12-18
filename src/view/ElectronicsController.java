@@ -46,8 +46,7 @@ import javax.swing.JOptionPane;
 public class ElectronicsController implements Initializable, ControllerInterface
 {
 
-    //private ObservableList<Electronics> electronics;
-    
+  
     @FXML private ComboBox itemName;
     @FXML private ChoiceBox color;
     @FXML private Spinner itemQuantitySpinner;
@@ -56,21 +55,22 @@ public class ElectronicsController implements Initializable, ControllerInterface
     @FXML private TextField customerPriceTextField;
     @FXML private TextField ModelTextField;
     @FXML private Label errorMsgLabel;
-    private Electronics electronics;
     @FXML private Label headerLabel;
     @FXML private CheckBox adminCheckBox;
-    
     @FXML private ImageView electronicImage;
      
-    //Used for the file chooser
-    private FileChooser fileChooser;
-    private File imageFile;
-    private boolean imageFileChanged;
-    
     //used for the passwords
     @FXML private PasswordField pwField;
     @FXML private PasswordField confirmPwField;
     
+     
+    //Used for the file chooser
+    private FileChooser fileChooser;
+    private File imageFile;
+    private Electronics electronics;
+    private boolean imageFileChanged;
+    
+   
     JFrame frame = new JFrame("JOptionPane showMessageDialog example");
     
     
@@ -81,7 +81,7 @@ public class ElectronicsController implements Initializable, ControllerInterface
         {
             try
             {
-                if (electronics != null) //we need to edit/update an existing volunteer
+                if (electronics != null) 
                     {
                         updateElectronics();
                         electronics.updateElectrornicsInDB();
@@ -99,10 +99,7 @@ public class ElectronicsController implements Initializable, ControllerInterface
                                                                 color.getValue().toString(), imageFile.getAbsoluteFile(), 
                                                                 pwField.getText(),adminCheckBox.isSelected() );
                         }
-
-
-
-                      else
+                    else
                         {
                                electronics = new Electronics(itemName.getValue().toString(), 
                                                                 Integer.parseInt(itemQuantitySpinner.getValue().toString()),
@@ -161,7 +158,7 @@ public class ElectronicsController implements Initializable, ControllerInterface
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-         imageFileChanged = false; //initially the image has not changed, use the default
+        imageFileChanged = false; //initially the image has not changed, use the default
            
         //This is configuring for error Message display.
         errorMsgLabel.setText("");
@@ -275,8 +272,6 @@ public class ElectronicsController implements Initializable, ControllerInterface
         this.ModelTextField.setText(electronics.getModel());
         this.color.setUserData(electronics.getColor());
         this.headerLabel.setText("Edit Electronics");
-        
-        
          
         try
             {
@@ -290,7 +285,6 @@ public class ElectronicsController implements Initializable, ControllerInterface
              {
                     System.err.println(e.getMessage());
              }
-    
     }
     
        /**

@@ -63,10 +63,7 @@ public class Inventory {
             throw new IllegalArgumentException("Item name must start with an valid name");
                                                    
     }
-    
-    
-    
-    
+   
     public boolean isAdmin() {
         return admin;
     }
@@ -74,8 +71,7 @@ public class Inventory {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    
-
+  
     /*
     ThiS is get method for itemQuantity.
     */

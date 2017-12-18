@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import java.io.IOException;
@@ -27,20 +23,17 @@ import models.Electronics;
  */
 public class PurchaseOrderItemViewController implements Initializable, ControllerInterface {
 
-     @FXML   private DatePicker datePicker;
-    @FXML    private Spinner itemQuantitySpinner;
-    @FXML    private Label userIDLabel;
-    @FXML    private Label manufacturereNameLabel;
-    @FXML    private Label itemNameLabel;
-    @FXML    private Label errMsgLabel;
-    @FXML    private Button backButton;
+    @FXML private DatePicker datePicker;
+    @FXML private Spinner itemQuantitySpinner;
+    @FXML private Label userIDLabel;
+    @FXML private Label manufacturereNameLabel;
+    @FXML private Label itemNameLabel;
+    @FXML private Label errMsgLabel;
+    @FXML private Button backButton;
 
     private Electronics electronics;
-    
-    
-    
-    
-      /**
+   
+    /**
      * Initializes the controller class.
      */
     @Override
@@ -54,12 +47,9 @@ public class PurchaseOrderItemViewController implements Initializable, Controlle
             backButton.setText("Edit");
     }    
 
-    
-    
-    
-     /**
+    /**
      * This method will read/validate the inputs and store the information
-     * in the hoursWorked table
+     * in the purchaseOrder table
      */
     public void saveButtonPushed(ActionEvent event)
     {
@@ -78,7 +68,7 @@ public class PurchaseOrderItemViewController implements Initializable, Controlle
     
     
      /**
-     * This will return the user to the table of all volunteers
+     * This will return the user to the table of all electronics
      */
     public void cancelButttonPushed(ActionEvent event) throws IOException
     {
