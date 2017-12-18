@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="596.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="view.MonthlyPurchaseReportViewController">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MonthlyPurchaseReportViewController">
    <children>
       <Label layoutX="167.0" layoutY="28.0" prefHeight="42.0" prefWidth="278.0" text="ORDER PURCHASE  REPORT">
          <font>
@@ -25,5 +24,6 @@
         </yAxis>
       </BarChart>
       <Button layoutX="458.0" layoutY="452.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="35.0" prefWidth="105.0" text="Back" />
+      <Button layoutX="328.0" layoutY="452.0" mnemonicParsing="false" onAction="#logoutButtonPushed" prefHeight="35.0" prefWidth="105.0" text="Log Out" />
    </children>
 </AnchorPane>

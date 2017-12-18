@@ -146,7 +146,7 @@ public class InventoryController implements Initializable {
         
         try{
             //1. connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             //2.  create a statement object
             statement = conn.createStatement();
             
@@ -163,7 +163,8 @@ public class InventoryController implements Initializable {
                                                        resultSet.getDouble("customerPrice"),
                                                        resultSet.getString("model"),
                                                        resultSet.getString("color"),
-                                                       resultSet.getString("password"));
+                                                       resultSet.getString("password"),
+                                                       resultSet.getBoolean("admin"));
                 newelectronics.setUserId(resultSet.getInt("UserId"));
 
              newelectronics.setImageFile((new File (resultSet.getString("imageFile"))));
@@ -273,6 +274,14 @@ public class InventoryController implements Initializable {
         sc.changeScenes(event, "MonthlyPurchaseReportView.fxml", "View Purchase Order Report");
     }
     
+      
+        public void logoutButtonPushed(ActionEvent event) throws IOException
+    {
+        SceneChangingUtility.setLoggedInUser(null);
+        SceneChangingUtility sc= new SceneChangingUtility();
+        sc.changeScenes(event, "LogInView.fxml", "LogIn");
+        
+    }
     
     
 }

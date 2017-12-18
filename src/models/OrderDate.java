@@ -25,11 +25,11 @@ public class OrderDate extends Inventory {
        
     
     public OrderDate(int itemsSold, int itemsLeft, int purchaseOrder,
-  String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color,String password )
+  String itemName, int itemQuantity, String manufacturerName, double sellingPrice, double buyingPrice, String model, String color,String password , boolean admin)
     
     
     {
-        super(itemName, itemQuantity, manufacturerName, sellingPrice , buyingPrice,model , color, password);
+        super(itemName, itemQuantity, manufacturerName, sellingPrice , buyingPrice,model , color, password, admin);
     
     setItemsSold(itemsSold);
     setItemsLeft(itemsLeft);

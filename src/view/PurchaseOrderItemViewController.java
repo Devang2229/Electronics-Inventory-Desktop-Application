@@ -49,7 +49,9 @@ public class PurchaseOrderItemViewController implements Initializable, Controlle
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0,900,300);
         itemQuantitySpinner.setValueFactory(valueFactory);
         
-      
+       //change the text on the button if it is not an administrative user
+        if (!SceneChangingUtility.getLoggedInUser().isAdmin())
+            backButton.setText("Edit");
     }    
 
     
@@ -82,8 +84,14 @@ public class PurchaseOrderItemViewController implements Initializable, Controlle
     {
         //if this is an admin user, go back to the table of volunteers
         SceneChangingUtility sc = new SceneChangingUtility();
-     
-        sc.changeScenes(event, "Electronics.fxml", "All Electronics");
+        
+        if (SceneChangingUtility.getLoggedInUser().isAdmin())
+            sc.changeScenes(event, "Inventory.fxml", "All Electronics");
+        else
+        {
+            ElectronicsController controller = new ElectronicsController();
+            sc.changeScenes(event, "Electronics.fxml", "Edit", electronics, controller);
+        }
             
     }
 
@@ -96,5 +104,14 @@ public class PurchaseOrderItemViewController implements Initializable, Controlle
         itemNameLabel.setText(electronics.getItemName());
         datePicker.setValue(LocalDate.now());
         errMsgLabel.setText("");
+    }
+    
+    
+    public void logoutButtonPushed(ActionEvent event) throws IOException
+    {
+        SceneChangingUtility.setLoggedInUser(null);
+        SceneChangingUtility sc= new SceneChangingUtility();
+        sc.changeScenes(event, "LogInView.fxml", "LogIn");
+        
     }
 }

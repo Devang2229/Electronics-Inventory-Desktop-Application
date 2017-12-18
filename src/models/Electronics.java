@@ -34,22 +34,25 @@ public class Electronics extends Inventory
     private String isinCode;
     private File imageFile;
     private String description;
+   
    //private Image image;
    
     public Electronics( String itemName, int itemQuantity, String manufacturerName, double retailPrice, 
-                        double customerPrice, String model, String color, String password) throws NoSuchAlgorithmException
+                        double customerPrice, String model, String color, String password, boolean admin) throws NoSuchAlgorithmException
     {
-        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color, password);
+        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color, password, admin);
         setImageFile(new File("./src/images/Electronics icon.png"));
         salt = PasswordGenerator.getSalt();
         this.password = PasswordGenerator.getSHA512Password(password, salt);
+        this.admin = admin;
+      
     }
     
     
    
-    public Electronics(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice,String model, String color, File imageFile,String password) throws IOException, NoSuchAlgorithmException
+    public Electronics(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice,String model, String color, File imageFile,String password, boolean admin) throws IOException, NoSuchAlgorithmException
     {
-        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color, password);
+        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color, password, admin);
         setImageFile(imageFile);
         copyImageFile();
     }
@@ -220,11 +223,11 @@ public class Electronics extends Inventory
         try
         {
             //1. Connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             
             //2. Create a String that holds the query with ? as user inputs
-            String sql = "INSERT INTO Electronics (itemName, manufacturerName, itemQuantity,color, model, retailPrice , customerPrice, imageFile, password, salt)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Electronics (itemName, manufacturerName, itemQuantity,color, model, retailPrice , customerPrice, imageFile, password, salt, admin)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?, ?)";
                     
             //3. prepare the query
             preparedStatement = conn.prepareStatement(sql);
@@ -242,6 +245,7 @@ public class Electronics extends Inventory
             preparedStatement.setString(8, imageFile.getName());
             preparedStatement.setString(9, password);
             preparedStatement.setBlob(10, new javax.sql.rowset.serial.SerialBlob(salt));
+            preparedStatement.setBoolean(11, admin);
             
             preparedStatement.executeUpdate();
         }
@@ -267,7 +271,7 @@ public class Electronics extends Inventory
         
         try{
             //1.  connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             
             //2.  create a String that holds our SQL update command with ? for user inputs
             String sql = "UPDATE electronics SET itemName = ?, manufacturerName =?, itemQuantity =?,color =?, model=?, retailPrice =? , customerPrice =?, imageFile= ? ";

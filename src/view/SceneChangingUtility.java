@@ -21,6 +21,9 @@ import models.Electronics;
  * @author janid
  */
 public class SceneChangingUtility {
+    
+    private static Electronics loggedInUser;
+
  
    
     public void changeScenes(ActionEvent event, String viewName, String title) throws IOException
@@ -56,6 +59,14 @@ public class SceneChangingUtility {
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
+    }
+    
+     public static Electronics getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(Electronics loggedInUser) {
+        SceneChangingUtility.loggedInUser = loggedInUser;
     }
    
     

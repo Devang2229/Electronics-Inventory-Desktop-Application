@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -57,6 +58,7 @@ public class ElectronicsController implements Initializable, ControllerInterface
     @FXML private Label errorMsgLabel;
     private Electronics electronics;
     @FXML private Label headerLabel;
+    @FXML private CheckBox adminCheckBox;
     
     @FXML private ImageView electronicImage;
      
@@ -95,7 +97,7 @@ public class ElectronicsController implements Initializable, ControllerInterface
                                                                 Double.parseDouble(customerPriceTextField.getText()), 
                                                                 ModelTextField.getText() ,
                                                                 color.getValue().toString(), imageFile.getAbsoluteFile(), 
-                                                                pwField.getText());
+                                                                pwField.getText(),adminCheckBox.isSelected() );
                         }
 
 
@@ -109,7 +111,7 @@ public class ElectronicsController implements Initializable, ControllerInterface
                                                                 Double.parseDouble(customerPriceTextField.getText()), 
                                                                 ModelTextField.getText() ,
                                                                 color.getValue().toString(),
-                                                                 pwField.getText());
+                                                                 pwField.getText(), adminCheckBox.isSelected());
 
                          }
                  errorMsgLabel.setText("");    
@@ -140,9 +142,16 @@ public class ElectronicsController implements Initializable, ControllerInterface
      */
     public void changeScreenButtonPushed(ActionEvent event) throws IOException
     {
-        
         SceneChangingUtility sc = new SceneChangingUtility();
-        sc.changeScenes(event, "Inventory.fxml", "All Electronics");
+        
+        //check if it is an admin user and go to the table view
+        if (SceneChangingUtility.getLoggedInUser().isAdmin())
+            sc.changeScenes(event, "Inventory.fxml", "All Electronics");
+        else
+        {
+            PurchaseOrderItemViewController controller = new PurchaseOrderItemViewController();
+            sc.changeScenes(event, "PurchaseOrderItemView.fxml", "Purchase Order", electronics, controller);
+        }
           
     }
    
@@ -321,9 +330,15 @@ public class ElectronicsController implements Initializable, ControllerInterface
         electronics.copyImageFile();
     }
        
+    public void logoutButtonPushed(ActionEvent event) throws IOException
+    {
+        SceneChangingUtility.setLoggedInUser(null);
+        SceneChangingUtility sc= new SceneChangingUtility();
+        sc.changeScenes(event, "LogInView.fxml", "LogIn");
+        
+    }
 
 }
     
     
-    
-
+ 

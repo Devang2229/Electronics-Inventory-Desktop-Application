@@ -84,7 +84,7 @@ public class MonthlyPurchaseReportViewController implements Initializable {
         try
         {
             //1.  connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             
             //2.  create the statement
             statement = conn.createStatement();
@@ -133,6 +133,16 @@ public class MonthlyPurchaseReportViewController implements Initializable {
     {
         SceneChangingUtility sc = new SceneChangingUtility();
         sc.changeScenes(event, "Electronics.fxml", "All  ELectronics");
+    }
+    
+    
+          
+        public void logoutButtonPushed(ActionEvent event) throws IOException
+    {
+        SceneChangingUtility.setLoggedInUser(null);
+        SceneChangingUtility sc= new SceneChangingUtility();
+        sc.changeScenes(event, "LogInView.fxml", "LogIn");
+        
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -35,7 +36,7 @@ public class LogInViewController implements Initializable {
     @FXML private PasswordField pwField;
     @FXML private Label errMsgLabel;
     
-    public void loginButtonPushed(ActionEvent event) throws IOException, NoSuchAlgorithmException, SQLException
+    public void loginButtonPushed(ActionEvent event) throws IOException, NoSuchAlgorithmException
     {
         //query the database with the volunteerID provided, get the salt
         //and encrypted password stored in the database
@@ -43,14 +44,16 @@ public class LogInViewController implements Initializable {
         PreparedStatement ps = null;
         ResultSet resultSet = null;
         
+        
+       
         int userID = Integer.parseInt(userIDTextField.getText());
         
         try{
             //1.  connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             
             //2.  create a query string with ? used instead of the values given by the user
-            String sql = "SELECT password, salt  FROM electronics WHERE UserID = ?";
+            String sql = "SELECT * FROM electronics WHERE UserID = ?";
             
             //3.  prepare the statement
             ps = conn.prepareStatement(sql);
@@ -62,8 +65,10 @@ public class LogInViewController implements Initializable {
             resultSet = ps.executeQuery();
             
             //6.  extract the password and salt from the resultSet
-            String dbPassword=null;
+            String dbPassword = null;
             byte[] salt = null;
+            boolean admin = false;
+            Electronics electronics = null;
            
             
             while (resultSet.next())
@@ -75,8 +80,21 @@ public class LogInViewController implements Initializable {
                 //convert into a byte array
                 int blobLength = (int) blob.length();
                 salt = blob.getBytes(1, blobLength);
+                admin = resultSet.getBoolean("admin");
                 
-               
+                
+                electronics = new Electronics(resultSet.getString("itemName"),
+                                                       resultSet.getInt("itemQuantity"),
+                                                       resultSet.getString("manufacturerName"),
+                                                       resultSet.getDouble("retailPrice"),
+                                                       resultSet.getDouble("customerPrice"),
+                                                       resultSet.getString("model"),
+                                                       resultSet.getString("color"),
+                                                       resultSet.getString("password"),
+                                                       resultSet.getBoolean("admin"));
+                electronics.setUserId(resultSet.getInt("UserId"));
+                electronics.setImageFile(new File (resultSet.getString("imageFile")));
+           
             }
             
             //convert the password given by the user into an encryted password
@@ -84,12 +102,28 @@ public class LogInViewController implements Initializable {
             String userPW = PasswordGenerator.getSHA512Password(pwField.getText(), salt);
             
             SceneChangingUtility sc = new SceneChangingUtility();
+            
+            if(userPW.isEmpty())
+                throw new IllegalArgumentException("PLease enter the password.");
+            
+            
+            
+             if (userPW.equals(dbPassword))
+                SceneChangingUtility.setLoggedInUser(electronics);
          
             
             //if the passwords match - change to the VolunteerTableView
-            if (userPW.equals(dbPassword))
+            if (userPW.equals(dbPassword) && admin)
                 sc.changeScenes(event, "Inventory.fxml", "All Electronics");
-           
+            else if(userPW.equals(dbPassword))
+            {
+                
+                
+                PurchaseOrderItemViewController controllerClass = new PurchaseOrderItemViewController();
+                
+                
+                sc.changeScenes(event, "PurchaseOrderItemView.fxml", "Purchase Order", electronics, controllerClass);
+            }
             else
                 //if the do not match, update the error message
                 errMsgLabel.setText("The UserID and password do not match");

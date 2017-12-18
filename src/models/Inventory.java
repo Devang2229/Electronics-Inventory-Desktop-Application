@@ -22,13 +22,14 @@ public class Inventory {
     protected SimpleDoubleProperty retailPrice ,customerPrice;
     protected byte[] salt;
     protected String password;
+    protected boolean admin;
 
    
 
     /*
     This is constructor for the inventory class.
     */
-    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color, String password)
+    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color, String password, boolean admin)
     {
        
         setItemName(itemName);
@@ -38,6 +39,7 @@ public class Inventory {
         setCustomerPrice(customerPrice);
         setModel(model);
         setColor(color);
+        this.admin = admin;
     
     }//end of the constructor
 
@@ -61,6 +63,18 @@ public class Inventory {
             throw new IllegalArgumentException("Item name must start with an valid name");
                                                    
     }
+    
+    
+    
+    
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+    
 
     /*
     ThiS is get method for itemQuantity.
@@ -184,7 +198,7 @@ public class Inventory {
         
         try{
             //1. connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics", "root", "Dzian@0901");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             
             //2. create a preparedStatement
             String sql = "INSERT INTO purchaseOrder(UserId, purchaseDate, purchaseOrderQuantity) VALUES (?,?,?);";
