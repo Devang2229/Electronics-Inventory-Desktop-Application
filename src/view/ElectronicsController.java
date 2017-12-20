@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import models.Electronics;
@@ -47,23 +43,18 @@ public class ElectronicsController implements Initializable, ControllerInterface
 {
 
   
-    @FXML private ComboBox itemName;
+    @FXML private TextField itemName;
     @FXML private ChoiceBox color;
     @FXML private Spinner itemQuantitySpinner;
-    @FXML private TextField manufacturerNamETextField;
+    @FXML private ChoiceBox manufacturerNamETextField;
     @FXML private TextField retailPriceTextField;
     @FXML private TextField customerPriceTextField;
     @FXML private TextField ModelTextField;
     @FXML private Label errorMsgLabel;
     @FXML private Label headerLabel;
-    @FXML private CheckBox adminCheckBox;
+
     @FXML private ImageView electronicImage;
-     
-    //used for the passwords
-    @FXML private PasswordField pwField;
-    @FXML private PasswordField confirmPwField;
-    
-     
+  
     //Used for the file chooser
     private FileChooser fileChooser;
     private File imageFile;
@@ -74,11 +65,13 @@ public class ElectronicsController implements Initializable, ControllerInterface
     JFrame frame = new JFrame("JOptionPane showMessageDialog example");
     
     
-    
+    /*
+    This method allows the user to create new electronics and update that in the inventory vie. If the button is pushed.
+    */
     public void createNewDeviceButtonPushed(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException
     {
-        if(validPassword())
-        {
+       
+        
             try
             {
                 if (electronics != null) 
@@ -90,25 +83,25 @@ public class ElectronicsController implements Initializable, ControllerInterface
                 {
                     if(imageFileChanged)
                         {
-                            electronics = new Electronics(itemName.getValue().toString(), 
+                            electronics = new Electronics(itemName.getText(), 
                                                                 Integer.parseInt(itemQuantitySpinner.getValue().toString()),
-                                                                manufacturerNamETextField.getText(),
+                                                                manufacturerNamETextField.getValue().toString(),
                                                                 Double.parseDouble(retailPriceTextField.getText()),
                                                                 Double.parseDouble(customerPriceTextField.getText()), 
                                                                 ModelTextField.getText() ,
-                                                                color.getValue().toString(), imageFile.getAbsoluteFile(), 
-                                                                pwField.getText(),adminCheckBox.isSelected() );
+                                                                color.getValue().toString(), imageFile.getAbsoluteFile()) ;
+                                                                
                         }
                     else
                         {
-                               electronics = new Electronics(itemName.getValue().toString(), 
+                               electronics = new Electronics(itemName.getText(), 
                                                                 Integer.parseInt(itemQuantitySpinner.getValue().toString()),
-                                                                manufacturerNamETextField.getText(),
+                                                                manufacturerNamETextField.getValue().toString(),
                                                                 Double.parseDouble(retailPriceTextField.getText()),
                                                                 Double.parseDouble(customerPriceTextField.getText()), 
                                                                 ModelTextField.getText() ,
-                                                                color.getValue().toString(),
-                                                                 pwField.getText(), adminCheckBox.isSelected());
+                                                                color.getValue().toString());
+                                                               
 
                          }
                  errorMsgLabel.setText("");    
@@ -127,28 +120,17 @@ public class ElectronicsController implements Initializable, ControllerInterface
                 }
 
         }
-        
-    }
-   
-   
+    
       /**
      * When this method is called, it will change the Scene to 
-     * a TableView example, so the back button takes it to the table view.
+     * a inventory example, so the back button takes it to the table view.
      * @param event
      * @throws java.io.IOException
      */
     public void changeScreenButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility sc = new SceneChangingUtility();
-        
-        //check if it is an admin user and go to the table view
-        if (SceneChangingUtility.getLoggedInUser().isAdmin())
-            sc.changeScenes(event, "Inventory.fxml", "All Electronics");
-        else
-        {
-            PurchaseOrderItemViewController controller = new PurchaseOrderItemViewController();
-            sc.changeScenes(event, "PurchaseOrderItemView.fxml", "Purchase Order", electronics, controller);
-        }
+        sc.changeScenes(event, "Inventory.fxml", "All Electronics");
           
     }
    
@@ -163,14 +145,18 @@ public class ElectronicsController implements Initializable, ControllerInterface
         //This is configuring for error Message display.
         errorMsgLabel.setText("");
         
-        //This items are for configuring the ComboBox.
-        itemName.getItems().add("Dell Laptops");
-        itemName.getItems().add("Iphone 8");
-        itemName.getItems().add("Iphone 7");
-        itemName.getItems().add("ASUS Laptop");
-        itemName.getItems().add("Samung s7");
-        itemName.getItems().add("Samung s8");
-        itemName.setValue("Dell Laptops");
+        //This items are for configuring the ChoiceBoX.
+        manufacturerNamETextField.getItems().add("Arizona Ltd.");
+        manufacturerNamETextField.getItems().add("A1 Mobile Phones Ltd.");
+        manufacturerNamETextField.getItems().add("Bay Ltd.");
+        manufacturerNamETextField.getItems().add("Samsung");
+        manufacturerNamETextField.getItems().add("Apple");
+        manufacturerNamETextField.getItems().add("Sony");
+        manufacturerNamETextField.getItems().add("China Market Ltd.");
+        manufacturerNamETextField.getItems().add("Japan Private Ltd.");
+        manufacturerNamETextField.getItems().add("Lenovo Ltd.");
+        manufacturerNamETextField.setValue("China Market Ltd.");
+    
         
         //This items are configuring for the Choice Box.
         color.getItems().add("Black");
@@ -255,22 +241,26 @@ public class ElectronicsController implements Initializable, ControllerInterface
             }
         }
     }
-
+    
+    /**
+     * This is the method where it pre-loads the data.
+     * @param electronics 
+     */
     @Override
     public void preloadData(Electronics electronics)
     {
         //update the Spinner value factory
         SpinnerValueFactory<Integer> quantity = new  SpinnerValueFactory.IntegerSpinnerValueFactory(0,900, electronics.getItemQuantity());
         this.itemQuantitySpinner.setValueFactory(quantity);
+      
         
         //update the display
         this.electronics = electronics;
-        this.itemName.setValue(electronics.getItemName());
-        this.manufacturerNamETextField.setText(electronics.getManufacturerName());
-        this.retailPriceTextField.setUserData(electronics.getRetailPrice());
-        this.customerPriceTextField.setUserData(electronics.getCustomerPrice());
+        this.itemName.setText(electronics.getItemName().toString());
+        this.manufacturerNamETextField.setValue(electronics.getManufacturerName().toString());
+        
         this.ModelTextField.setText(electronics.getModel());
-        this.color.setUserData(electronics.getColor());
+        this.color.setValue(electronics.getColor().toString());
         this.headerLabel.setText("Edit Electronics");
          
         try
@@ -287,35 +277,15 @@ public class ElectronicsController implements Initializable, ControllerInterface
              }
     }
     
-       /**
-     * This method will validate that the passwords match
-     * 
-     */
-    public boolean validPassword()
-    {
-        if (pwField.getText().length() < 5)
-        {
-            errorMsgLabel.setText("Passwords must be greater than 5 characters in length");
-            return false;
-        }
-        
-        if (pwField.getText().equals(confirmPwField.getText()))
-            return true;
-        else
-            return false;
-    }
-    
-    
-    
   
      /**
      * This method will read from the GUI fields and update the volunteer object
      */
     public void updateElectronics() throws IOException
     {
-        electronics.setItemName(itemName.getValue().toString());
+        electronics.setItemName(itemName.getText());
         electronics.setItemQuantity(Integer.parseInt(itemQuantitySpinner.getValue().toString()));
-        electronics.setManufacturerName(manufacturerNamETextField.getText());
+        electronics.setManufacturerName(manufacturerNamETextField.getValue().toString());
         electronics.setRetailPrice( Double.parseDouble(retailPriceTextField.getText()));
         electronics.setCustomerPrice(Double.parseDouble(customerPriceTextField.getText()));
         electronics.setModel(ModelTextField.getText());
@@ -323,7 +293,12 @@ public class ElectronicsController implements Initializable, ControllerInterface
         electronics.setImageFile(imageFile);
         electronics.copyImageFile();
     }
-       
+    
+    /**
+     * This is the method where it logs out of the system.
+     * @param event
+     * @throws IOException 
+     */
     public void logoutButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility.setLoggedInUser(null);

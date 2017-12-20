@@ -121,7 +121,7 @@ public class MonthlyPurchaseReportViewController implements Initializable {
     public void backButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility sc = new SceneChangingUtility();
-        sc.changeScenes(event, "Electronics.fxml", "All  ELectronics");
+        sc.changeScenes(event, "AdminPortalView.fxml", "All  ELectronics");
     }
   
     public void logoutButtonPushed(ActionEvent event) throws IOException

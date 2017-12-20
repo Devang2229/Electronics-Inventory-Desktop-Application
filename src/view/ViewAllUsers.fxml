@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewAllUsersController">
+   
+   <children>
+      <Button fx:id="editDeviceButton" layoutX="302.0" layoutY="315.0" mnemonicParsing="false" onAction="#editButtonPushed" prefHeight="41.0" prefWidth="182.0" text="Edit">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="559.0" layoutY="315.0" mnemonicParsing="false" onAction="#logoutButtonPushed" prefHeight="41.0" prefWidth="157.0" text="Log Out ">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="57.0" layoutY="315.0" mnemonicParsing="false" onAction="#newUserButtonPushed" prefHeight="41.0" prefWidth="182.0" text="Create New Users">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <TableView fx:id="UserTable" layoutX="3.0" layoutY="78.0" onMouseClicked="#UsersSelected" prefHeight="192.0" prefWidth="778.0">
+        <columns>
+          <TableColumn fx:id="firstName" prefWidth="147.0" text="First Name" />
+            <TableColumn fx:id="lastName" prefWidth="214.0" text="LastName" />
+            <TableColumn fx:id="phoneNumber" prefWidth="198.0" text="Phone Number" />
+            <TableColumn fx:id="emailAddress" prefWidth="218.0" text="Email Address" />
+        </columns>
+      </TableView>
+      <Label layoutX="245.0" layoutY="14.0" prefHeight="53.0" prefWidth="295.0" text="ALL SALES  USERS">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="302.0" layoutY="385.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="41.0" prefWidth="182.0" text="Back">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

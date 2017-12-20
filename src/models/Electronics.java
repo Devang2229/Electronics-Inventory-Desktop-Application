@@ -34,33 +34,41 @@ public class Electronics extends Inventory
     private File imageFile;
     private String description;
    
-   //private Image image;
-   
+
+   /*
+    This is the first constructor
+    */
     public Electronics( String itemName, int itemQuantity, String manufacturerName, double retailPrice, 
-                        double customerPrice, String model, String color, String password, boolean admin) throws NoSuchAlgorithmException
+                        double customerPrice, String model, String color) throws NoSuchAlgorithmException
     {
-        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color, password, admin);
+        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color);
         setImageFile(new File("./src/images/Electronics icon.png"));
-        salt = PasswordGenerator.getSalt();
-        this.password = PasswordGenerator.getSHA512Password(password, salt);
-        this.admin = admin;
-      
+        
     }
     
     
-   
-    public Electronics(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice,String model, String color, File imageFile,String password, boolean admin) throws IOException, NoSuchAlgorithmException
+   /*
+    This is the contructor second.
+    */
+    public Electronics(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice,String model, String color, File imageFile) throws IOException, NoSuchAlgorithmException
     {
-        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color, password, admin);
+        super(itemName, itemQuantity, manufacturerName, retailPrice, customerPrice, model, color);
         setImageFile(imageFile);
         copyImageFile();
     }
     
+    /*
+    The getter method
+    */
     public String getProductKey() 
     {
         return productKey;
     }
-
+    
+    /**
+     * The setter method validating the product key
+     * @param productKey 
+     */
     public void setProductKey(String productKey)
     {
         
@@ -70,12 +78,21 @@ public class Electronics extends Inventory
             throw new IllegalArgumentException("PLease enter the product key only alphanumeric letters.");
    
     }
-
+    
+    /**
+     * THe get method for IsinCode
+     * @return 
+     */
     public String getIsinCode()
     {
         return isinCode;
     }
 
+    
+    /**
+     * The setter method for the isin code and validating the regex strings
+     * @param isinCode 
+     */
     public void setIsinCode(String isinCode) 
     {
         if(isinCode.matches("[A-Z]{2}([A-Z0-9]){10}"))
@@ -84,7 +101,7 @@ public class Electronics extends Inventory
             throw new IllegalArgumentException("PLease enter 12 letter following the first two alphabets and rest any letters or numbers");
     }
     
-       public File getImageFile() {
+    public File getImageFile() {
         return imageFile;
     }
 
@@ -126,13 +143,7 @@ public class Electronics extends Inventory
         imageFile = new File(targetPath.toString());
     }
     
-    public String getPassword() {
-        return password;
-    }
-
-    public byte[] getSalt() {
-        return salt;
-    }
+ 
 
     
     /**
@@ -212,7 +223,7 @@ public class Electronics extends Inventory
     
     
      /**
-     * This method will write the instance of the electronics into the database
+     * This method will write the instance of the electronics into the database and inserts the data.
      */
     public void insertIntoDB() throws SQLException
     {
@@ -225,8 +236,8 @@ public class Electronics extends Inventory
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Electronics?useSSL=false", "root", "Dzian@0901");
             
             //2. Create a String that holds the query with ? as user inputs
-            String sql = "INSERT INTO Electronics (itemName, manufacturerName, itemQuantity,color, model, retailPrice , customerPrice, imageFile, password, salt, admin)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?, ?)";
+            String sql = "INSERT INTO Electronics (itemName, manufacturerName, itemQuantity,color, model, retailPrice , customerPrice, imageFile)"
+                    + "VALUES (?,?,?,?,?,?,?,?)";
                     
             //3. prepare the query
             preparedStatement = conn.prepareStatement(sql);
@@ -242,9 +253,7 @@ public class Electronics extends Inventory
             preparedStatement.setDouble(6, retailPrice.get());
             preparedStatement.setDouble(7, customerPrice.get());
             preparedStatement.setString(8, imageFile.getName());
-            preparedStatement.setString(9, password);
-            preparedStatement.setBlob(10, new javax.sql.rowset.serial.SerialBlob(salt));
-            preparedStatement.setBoolean(11, admin);
+           
             
             preparedStatement.executeUpdate();
         }
@@ -262,7 +271,10 @@ public class Electronics extends Inventory
         }
     }
     
-    
+    /**
+     * This methods updates the electronics in the database and updates when it is edited.
+     * @throws SQLException 
+     */
     public void updateElectrornicsInDB() throws SQLException
     {
         Connection conn = null;
@@ -307,4 +319,4 @@ public class Electronics extends Inventory
         }
         
     }
-}
+}//end of the class

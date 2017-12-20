@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="471.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminPortalViewController">
+   <children>
+      <Button layoutX="181.0" layoutY="121.0" mnemonicParsing="false" onAction="#createNewUserButtonPushed" prefHeight="49.0" prefWidth="174.0" text="Create New  User">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font></Button>
+      <Button layoutX="306.0" layoutY="277.0" mnemonicParsing="false" onAction="#ViewAllUsersButtonPushed" prefHeight="49.0" prefWidth="174.0" text="View All Users">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="305.0" layoutY="203.0" mnemonicParsing="false" onAction="#InentorySalesButtonPushed" prefHeight="49.0" prefWidth="174.0" text="Manage Inventory">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <ImageView fitHeight="82.0" fitWidth="321.0" layoutX="247.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/header_logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="142.0" fitWidth="186.0" layoutX="300.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/admin-portal.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="433.0" layoutY="121.0" mnemonicParsing="false" onAction="#monthlyHoursButtonPushed" prefHeight="49.0" prefWidth="174.0" text="Sales Report ">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

@@ -16,20 +16,17 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Inventory {
       
-    private  int UserId;
+   //Instance variable
     protected SimpleStringProperty itemName, manufacturerName, model, color ;
     protected SimpleIntegerProperty itemQuantity;
     protected SimpleDoubleProperty retailPrice ,customerPrice;
-    protected byte[] salt;
-    protected String password;
-    protected boolean admin;
-
+    int employeeId;
    
 
     /*
     This is constructor for the inventory class.
     */
-    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color, String password, boolean admin)
+    public Inventory(String itemName, int itemQuantity, String manufacturerName, double retailPrice, double customerPrice, String model, String color)
     {
        
         setItemName(itemName);
@@ -39,7 +36,7 @@ public class Inventory {
         setCustomerPrice(customerPrice);
         setModel(model);
         setColor(color);
-        this.admin = admin;
+       
     
     }//end of the constructor
 
@@ -50,7 +47,26 @@ public class Inventory {
     {
         return itemName.get();
     }
-
+    
+    /**
+     * This is the getter method for userID
+     * @return 
+     */
+    public int getUserId() {
+        return employeeId;
+    }
+    
+    /**
+     * This is the setter method for userid which validates that the id is greater than 0.
+     * @param UserID 
+     */
+    public void setUserId(int UserID) {
+        if (UserID >= 0)
+            this.employeeId = UserID;
+        else
+            throw new IllegalArgumentException("User ID must be >= 0");
+    }
+    
     /*
     This is the set method for itemName.
     */
@@ -64,14 +80,6 @@ public class Inventory {
                                                    
     }
    
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-  
     /*
     ThiS is get method for itemQuantity.
     */
@@ -80,7 +88,11 @@ public class Inventory {
         return itemQuantity.get();
     }
 
-    
+    /**
+     * This is the setter method for the itemQuantity which 
+     * validates that the quantity is greater than 0 and less than 900.
+     * @param itemQuantity 
+     */
     public void setItemQuantity(int itemQuantity) 
     {
        
@@ -89,12 +101,20 @@ public class Inventory {
         else
            throw new IllegalArgumentException("The item quantity must be in the range of 0 - 900");
     }
-
+    
+    /**
+     * This is the getter method for the manufacturer name 
+     * @return 
+     */
     public String getManufacturerName() 
     {
         return manufacturerName.get();
     }
-
+    
+    /**
+     * This is the setter method for the manufacturer name where it validates that the name is not entered null.
+     * @param manufacturerName 
+     */
     public void setManufacturerName(String manufacturerName)
     {
         
@@ -106,11 +126,19 @@ public class Inventory {
                                             + "case letter and only contain letters");
     }
 
+    /**
+     * This is the getter method for customer price
+     * @return 
+     */
     public double getCustomerPrice()
     {
         return customerPrice.get();
     }
-
+    
+    /**
+     * This is the setter method which validates that the customer price is greater than 0 and less than 40000.
+     * @param sellingPrice 
+     */
     public void setCustomerPrice(double sellingPrice)
     {
          if(sellingPrice > 0 && sellingPrice < 40000)
@@ -118,12 +146,20 @@ public class Inventory {
         else 
             throw new IllegalArgumentException("Please enter selling price range 0 to 40000.");
     }
-
+    
+    /**
+     * This is the getter method for retail price.
+     * @return 
+     */
     public double getRetailPrice()
     {
         return retailPrice.get();
     }
 
+    /**
+     * This is the setter method for retail price which validates that the price is greater than 0 and less than 40000. 
+     * @param buyingPrice 
+     */
     public void setRetailPrice(double buyingPrice) 
     {
         if(buyingPrice > 0 && buyingPrice < 40000)
@@ -163,16 +199,7 @@ public class Inventory {
     }
     
     
-    public int getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(int UserID) {
-        if (UserID >= 0)
-            this.UserId = UserID;
-        else
-            throw new IllegalArgumentException("User ID must be >= 0");
-    }
+  
     
     
    /**
@@ -206,7 +233,7 @@ public class Inventory {
             Date dw = Date.valueOf(purchaseDate);
             
             //5.  bind the parameters
-            ps.setInt(1, UserId);
+            ps.setInt(1, employeeId);
             ps.setDate(2, dw);
             ps.setInt(3, purchaseOrderQuantity);
             
@@ -224,6 +251,7 @@ public class Inventory {
             if (ps != null)
                 ps.close();
         }
+        
     }
-    
 }
+

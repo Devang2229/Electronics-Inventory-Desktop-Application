@@ -42,23 +42,17 @@ public class PurchaseOrderItemViewController implements Initializable, Controlle
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0,900,300);
         itemQuantitySpinner.setValueFactory(valueFactory);
         
-       //change the text on the button if it is not an administrative user
-        if (!SceneChangingUtility.getLoggedInUser().isAdmin())
-            backButton.setText("Edit");
+     
     }    
 
     /**
      * This method will read/validate the inputs and store the information
      * in the purchaseOrder table
      */
-    public void saveButtonPushed(ActionEvent event)
+    public void saveButtonPushed(ActionEvent event) throws SQLException
     {
         try{
             electronics.purchaseItem(datePicker.getValue(), (int) itemQuantitySpinner.getValue());           
-        }
-        catch (SQLException e)
-        {
-            System.err.println(e.getMessage());
         }
         catch (IllegalArgumentException e)
         {

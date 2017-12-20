@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Electronics;
 
+import models.Users;
+
 
 /**
  *
@@ -17,7 +19,8 @@ import models.Electronics;
  */
 public class SceneChangingUtility {
     
-    private static Electronics loggedInUser;
+    private static Users loggedInUser;
+ 
 
  
    
@@ -56,14 +59,37 @@ public class SceneChangingUtility {
         stage.show();
     }
     
-     public static Electronics getLoggedInUser() {
+    
+    public void changeScenes(ActionEvent event, String viewName, String title, Users users, ControllerClass controllerClass) throws IOException  
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(viewName));
+        Parent parent = loader.load();
+        
+        Scene scene = new Scene(parent);
+        
+  
+        controllerClass = loader.getController();
+        controllerClass.preloadData(users);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        stage.setTitle(title);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+     public static Users getLoggedInUser() {
         return loggedInUser;
     }
 
-    public static void setLoggedInUser(Electronics loggedInUser) {
+    public static void setLoggedInUser(Users loggedInUser) {
         SceneChangingUtility.loggedInUser = loggedInUser;
     }
    
+  
+       
+
+  
     
     
 }

@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,6 +49,8 @@ public class InventoryController implements Initializable {
     @FXML private TableColumn<Electronics, Double> customerPrice;
     @FXML private TableColumn<Electronics, String> model;
     
+    
+    NumberFormat formatter = NumberFormat.getCurrencyInstance();
     @FXML private Button sell;
     @FXML private Button editDeviceButton;
     @FXML private Label inventoryValueLabel;
@@ -106,6 +109,16 @@ public class InventoryController implements Initializable {
         sc.changeScenes(event, "Electronics.fxml", "Edit Electronics", electronics, ec );
     }
     
+    
+    
+     public void backButtonPushed(ActionEvent event) throws IOException
+    {
+        SceneChangingUtility sc = new SceneChangingUtility();
+       
+        
+        sc.changeScenes(event, "AdminPortalView.fxml", "Admin Portal");
+    }
+    
     /**
      *The button gets enabled when the any of the device is selected
      */
@@ -115,7 +128,9 @@ public class InventoryController implements Initializable {
         purchaseOrderButton.setDisable(false);
     }
     
-    
+    /*
+    This method allows the user to purchase the order.
+    */
      public void PurchaseOrderButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility sc = new SceneChangingUtility();
@@ -160,10 +175,9 @@ public class InventoryController implements Initializable {
                                                        resultSet.getDouble("retailPrice"),
                                                        resultSet.getDouble("customerPrice"),
                                                        resultSet.getString("model"),
-                                                       resultSet.getString("color"),
-                                                       resultSet.getString("password"),
-                                                       resultSet.getBoolean("admin"));
-                newelectronics.setUserId(resultSet.getInt("UserId"));
+                                                       resultSet.getString("color"));
+                                                      
+              
 
              newelectronics.setImageFile((new File (resultSet.getString("imageFile"))));
              
@@ -200,7 +214,11 @@ public class InventoryController implements Initializable {
         sc.changeScenes(event, "Electronics.fxml", "Create New Electronic Device");
     }
   
-    public void updateInventoryValueLabel()
+        
+    /*
+     This method updates the in inventory value label and functionality
+    */ 
+   public void updateInventoryValueLabel()
     {
         double inventoryValue=0;
         
@@ -208,9 +226,13 @@ public class InventoryController implements Initializable {
         {
             inventoryValue += device.getRetailPrice();
         }
-        inventoryValueLabel.setText("Total Inventory Value: " +inventoryValue);
+        inventoryValueLabel.setText("Total Inventory Value: " + formatter.format(inventoryValue));
     }
     
+        
+    /*
+     This method updates the in stock label and functionality
+    */
     public void updateElectronicsInStockLabel()
     {
         double itemsLeft=0;
@@ -218,9 +240,12 @@ public class InventoryController implements Initializable {
         {
             itemsLeft+= items.getItemQuantity();
         }
-         electronicsStockLabel.setText("Electronics Currently Stock: " + itemsLeft);
+         electronicsStockLabel.setText("Electronics Currently Stock: " + formatter.format(itemsLeft));
     }
     
+    /*
+     This method updates the sold label and functionality
+    */
     public void updateElectronicsSoldLabel()
     {
         double itemsSold=0;
@@ -228,9 +253,13 @@ public class InventoryController implements Initializable {
         {
             itemsSold+= items.getItemQuantity() ;
         }
-         electronicsSoldLabel.setText("Eletronics Sold: " + itemsSold);
+         electronicsSoldLabel.setText("Eletronics Sold: " + formatter.format(itemsSold));
     }
     
+    
+    /*
+    This method updates the total sales and display the functioanlity
+    */
     public void updateTotalSalesLabel()
     {
         double totalSales =0;
@@ -238,7 +267,7 @@ public class InventoryController implements Initializable {
         {
             totalSales+= items.getCustomerPrice();
         }
-         totalSalesLabel.setText("Total Sales: " + totalSales);
+         totalSalesLabel.setText("Total Sales: " + formatter.format(totalSales));
     }
 
     /**
@@ -265,15 +294,12 @@ public class InventoryController implements Initializable {
         
     }
     
+ 
     
-      public void monthlyHoursButtonPushed(ActionEvent event) throws IOException
-    {
-        SceneChangingUtility sc = new SceneChangingUtility();
-        sc.changeScenes(event, "MonthlyPurchaseReportView.fxml", "View Purchase Order Report");
-    }
-    
-      
-        public void logoutButtonPushed(ActionEvent event) throws IOException
+      /*
+      It allows the user to log out of the system
+      */
+       public void logoutButtonPushed(ActionEvent event) throws IOException
     {
         SceneChangingUtility.setLoggedInUser(null);
         SceneChangingUtility sc= new SceneChangingUtility();
